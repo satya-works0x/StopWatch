@@ -35,7 +35,7 @@ public partial class TimerWidget : UserControl
     {
         // Responsive logic: If the application width is squeezed to "pen width" (less than 140px), 
         // hide the input boxes and buttons. Show ONLY the running timer text.
-        bool isSquished = e.NewSize.Width < 140;
+        bool isSquished = e.NewSize.Width < 230;
 
         if (TbName != null) TbName.IsVisible = !isSquished;
         if (ControlsPanel != null) ControlsPanel.IsVisible = !isSquished;

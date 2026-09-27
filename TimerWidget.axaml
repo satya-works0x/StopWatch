@@ -4,23 +4,22 @@
              SizeChanged="OnSizeChanged"
              Margin="5">
     
-    <Border x:Name="RootBorder" BorderBrush="#444" BorderThickness="1" CornerRadius="8" Padding="10" Background="#1e1e1e">
-        <!-- Kept strictly minimal so it doesn't stretch across the row -->
-        <StackPanel Orientation="Vertical" Spacing="8" VerticalAlignment="Center" HorizontalAlignment="Center">
+    <Border x:Name="RootBorder" BorderBrush="#444" BorderThickness="1" CornerRadius="8" Padding="8,4" Background="#1e1e1e">
+        <StackPanel Orientation="Horizontal" Spacing="10" VerticalAlignment="Center">
             
-            <TextBox x:Name="TbName" PlaceholderText="Topic..." FontWeight="Bold" Width="130" TextAlignment="Center"/>
+            <TextBox x:Name="TbName" PlaceholderText="Topic..." FontWeight="Bold" Width="100" VerticalAlignment="Center"/>
             
-            <StackPanel x:Name="CountdownSetupPanel" IsVisible="False" Orientation="Horizontal" Spacing="5" HorizontalAlignment="Center">
+            <StackPanel x:Name="CountdownSetupPanel" IsVisible="False" Orientation="Horizontal" Spacing="2" VerticalAlignment="Center">
                 <TextBlock Text="Min:" VerticalAlignment="Center" FontSize="12"/>
-                <TextBox x:Name="TbMinutes" Width="40" Text="30" FontSize="12" Padding="2"/>
+                <TextBox x:Name="TbMinutes" Width="35" Text="30" FontSize="12" Padding="2"/>
             </StackPanel>
 
-            <TextBlock x:Name="TxtDisplay" Text="00:00:00" FontSize="24" FontWeight="Bold" TextAlignment="Center"/>
+            <TextBlock x:Name="TxtDisplay" Text="00:00:00" FontSize="20" FontWeight="Bold" VerticalAlignment="Center"/>
             
-            <StackPanel x:Name="ControlsPanel" Orientation="Horizontal" Spacing="8" HorizontalAlignment="Center">
-                <Button Content="▶" Click="BtnStart_Click" Width="32" HorizontalContentAlignment="Center" Background="#2e7d32" FontSize="14" Padding="4"/>
-                <Button Content="⏸" Click="BtnStop_Click" Width="32" HorizontalContentAlignment="Center" Background="#c62828" FontSize="14" Padding="4"/>
-                <Button Content="🔄" Click="BtnReset_Click" Width="32" HorizontalContentAlignment="Center" Background="#1565c0" FontSize="14" Padding="4"/>
+            <StackPanel x:Name="ControlsPanel" Orientation="Horizontal" Spacing="4" VerticalAlignment="Center">
+                <Button Content="▶" Click="BtnStart_Click" Width="28" HorizontalContentAlignment="Center" Background="#2e7d32" FontSize="12" Padding="4"/>
+                <Button Content="⏸" Click="BtnStop_Click" Width="28" HorizontalContentAlignment="Center" Background="#c62828" FontSize="12" Padding="4"/>
+                <Button Content="🔄" Click="BtnReset_Click" Width="28" HorizontalContentAlignment="Center" Background="#1565c0" FontSize="12" Padding="4"/>
             </StackPanel>
             
         </StackPanel>
