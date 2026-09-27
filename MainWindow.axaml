@@ -1,0 +1,17 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        x:Class="MultiTimerApp.MainWindow"
+        Title="MultiTimer" Width="350" Height="500"
+        Topmost="True">
+    <DockPanel>
+        <!-- Add Timer Button -->
+        <Button DockPanel.Dock="Top" Content="+ Add New Timer" Click="AddTimer_Click" 
+                HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" Margin="10" 
+                Background="#2b2b2b" Foreground="White" FontWeight="Bold"/>
+        
+        <!-- Scrollable container for multiple timers -->
+        <ScrollViewer>
+            <StackPanel x:Name="TimersPanel" Spacing="10" Margin="10"/>
+        </ScrollViewer>
+    </DockPanel>
+</Window>

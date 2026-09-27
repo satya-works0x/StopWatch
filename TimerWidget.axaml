@@ -1,0 +1,32 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="MultiTimerApp.TimerWidget">
+    <Border BorderBrush="Gray" BorderThickness="1" CornerRadius="8" Padding="10" Background="#1e1e1e">
+        <StackPanel Spacing="8">
+            <!-- Naming Option -->
+            <TextBox PlaceholderText="Timer Name (e.g. Arrays, Trees)..." FontWeight="Bold"/>
+            
+            <!-- Type Selector -->
+            <StackPanel Orientation="Horizontal" Spacing="15" HorizontalAlignment="Center">
+                <RadioButton x:Name="RbStopwatch" Content="Stopwatch" IsChecked="True" IsCheckedChanged="ModeChanged"/>
+                <RadioButton x:Name="RbCountdown" Content="Countdown" IsCheckedChanged="ModeChanged"/>
+            </StackPanel>
+            
+            <!-- Countdown Input (Hidden by default) -->
+            <StackPanel x:Name="CountdownSetupPanel" IsVisible="False" Orientation="Horizontal" Spacing="5" HorizontalAlignment="Center">
+                <TextBlock Text="Set Minutes:" VerticalAlignment="Center"/>
+                <TextBox x:Name="TbMinutes" PlaceholderText="Min" Width="60" Text="30"/>
+            </StackPanel>
+
+            <!-- Time Display -->
+            <TextBlock x:Name="TxtDisplay" Text="00:00:00" FontSize="32" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,5"/>
+            
+            <!-- Controls -->
+            <Grid ColumnDefinitions="*,*,*">
+                <Button Grid.Column="0" Content="Start" Click="BtnStart_Click" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" Background="#2e7d32"/>
+                <Button Grid.Column="1" Content="Stop" Click="BtnStop_Click" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" Margin="5,0" Background="#c62828"/>
+                <Button Grid.Column="2" Content="Reset" Click="BtnReset_Click" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" Background="#1565c0"/>
+            </Grid>
+        </StackPanel>
+    </Border>
+</UserControl>
