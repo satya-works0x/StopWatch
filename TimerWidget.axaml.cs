@@ -1,6 +1,7 @@
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Threading;
+using Avalonia;
 using System;
 
 namespace MultiTimerApp;
@@ -11,9 +12,18 @@ public partial class TimerWidget : UserControl
     private TimeSpan _currentTime;
     private bool _isCountdown;
 
-    public TimerWidget()
+    public TimerWidget() : this(false) { }
+
+    public TimerWidget(bool isCountdown)
     {
         InitializeComponent();
+        _isCountdown = isCountdown;
+        
+        if (_isCountdown && CountdownSetupPanel != null)
+        {
+            CountdownSetupPanel.IsVisible = true;
+        }
+
         _timer = new DispatcherTimer
         {
             Interval = TimeSpan.FromSeconds(1)
@@ -21,19 +31,25 @@ public partial class TimerWidget : UserControl
         _timer.Tick += Timer_Tick;
     }
 
-    private void ModeChanged(object? sender, RoutedEventArgs e)
+    private void OnSizeChanged(object? sender, SizeChangedEventArgs e)
     {
-        if (RbCountdown?.IsChecked == true)
+        // Responsive logic: If the application width is squeezed to "pen width" (less than 140px), 
+        // hide the input boxes and buttons. Show ONLY the running timer text.
+        bool isSquished = e.NewSize.Width < 140;
+
+        if (TbName != null) TbName.IsVisible = !isSquished;
+        if (ControlsPanel != null) ControlsPanel.IsVisible = !isSquished;
+        
+        if (_isCountdown && CountdownSetupPanel != null)
         {
-            _isCountdown = true;
-            if (CountdownSetupPanel != null) CountdownSetupPanel.IsVisible = true;
+            CountdownSetupPanel.IsVisible = !isSquished && _currentTime.TotalSeconds == 0;
         }
-        else
+
+        // Remove the extra padding when squished to make it fit perfectly
+        if (RootBorder != null)
         {
-            _isCountdown = false;
-            if (CountdownSetupPanel != null) CountdownSetupPanel.IsVisible = false;
+            RootBorder.Padding = isSquished ? new Thickness(2, 5) : new Thickness(10);
         }
-        ResetTimer();
     }
 
     private void Timer_Tick(object? sender, EventArgs e)
@@ -41,13 +57,9 @@ public partial class TimerWidget : UserControl
         if (_isCountdown)
         {
             if (_currentTime.TotalSeconds > 0)
-            {
                 _currentTime = _currentTime.Subtract(TimeSpan.FromSeconds(1));
-            }
             else
-            {
-                _timer.Stop(); // Stops at 00:00:00
-            }
+                _timer.Stop();
         }
         else
         {
@@ -65,6 +77,10 @@ public partial class TimerWidget : UserControl
                 _currentTime = TimeSpan.FromMinutes(mins);
             }
         }
+        
+        // Hide the minute setup box when running to save space
+        if (_isCountdown && CountdownSetupPanel != null) CountdownSetupPanel.IsVisible = false;
+        
         _timer.Start();
         UpdateDisplay();
     }
@@ -76,17 +92,13 @@ public partial class TimerWidget : UserControl
 
     private void BtnReset_Click(object? sender, RoutedEventArgs e)
     {
-        ResetTimer();
-    }
-
-    private void ResetTimer()
-    {
-        _timer?.Stop();
+        _timer.Stop();
         _currentTime = TimeSpan.Zero;
         
         if (_isCountdown && TbMinutes != null && int.TryParse(TbMinutes.Text, out int mins))
         {
             _currentTime = TimeSpan.FromMinutes(mins);
+            if (CountdownSetupPanel != null) CountdownSetupPanel.IsVisible = true;
         }
         UpdateDisplay();
     }
