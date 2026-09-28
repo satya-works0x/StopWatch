@@ -11,6 +11,7 @@ public partial class TimerWidget : UserControl
     private DispatcherTimer _timer;
     private TimeSpan _currentTime;
     private bool _isCountdown;
+    int timer;
 
     public TimerWidget() : this(false) { }
 
